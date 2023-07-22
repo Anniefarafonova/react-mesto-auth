@@ -137,9 +137,9 @@ function App() {
   }
 
   //функция регистации
-  function onRegister(password, email) {
+  function onRegister(email, password) {
     Auth
-      .register(password, email)
+      .register(email, password)
       .then((res) => {
         setIsInfoTooltipPopupOpen(true)
         setIsDone(true)
@@ -155,9 +155,9 @@ function App() {
       })
   }
   //функция авторизации
-  function onLogin(password, email) {
+  function onLogin(email, password) {
     Auth
-      .authorize(password, email)
+      .authorize(email, password)
       .then((res) => {
         setLoggedIn(true)
         navigate('/', { replace: true });
@@ -176,9 +176,9 @@ function App() {
     getTokenCheck();
   }, [])
 
-  const getTokenCheck = (token) => {
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
+  function getTokenCheck() {
+    const token = localStorage.getItem('token');
+    if (token) {
       Auth
         .tokenCheck(token)
         .then((res) => {
@@ -187,19 +187,22 @@ function App() {
             navigate("/", { replace: true })
             setEmail(res.data.email)
           }
-        });
+        })
+        .catch((error) => { 
+          console.error(`Ошибка проверки токена ${error}`)
+        })
     }
   }
 
   //функция Api
-  useEffect(() => {
+  useEffect((loggedIn) => {
     Promise.all([api.getInfo(), api.getCard()])
       .then(([dataUser, dataCard]) => {
         setCurrentUser(dataUser)
         setCard(dataCard)
       })
       .catch((error) => console.error(`Ошибка при начальных данный страницы ${error}`));
-  }, []);
+  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

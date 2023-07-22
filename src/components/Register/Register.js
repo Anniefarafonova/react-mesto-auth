@@ -8,8 +8,8 @@ import * as Auth from "../../utils/Auth";
 
 export default function Register({ onRegister }) {
     const initialValuesRegister = {
-        password: '',
         email: '',
+        password: '',
     };
     const [valuesRegister, setValuesRegister] = useState(initialValuesRegister);
     const handleChange = (e) => {
@@ -32,18 +32,18 @@ export default function Register({ onRegister }) {
             <Header>
                 <Link to="/sign-in" className='header__list'>
                     Войти
-                </Link> 
+                </Link>
             </Header>
             <main className="content">
                 <section className="login">
                     <div className="login__container">
-                        <form className="form form_login" name="form-login" noValidate onSubmit={handleSubmit}>
+                        <form className="form form_login" name="form-login" onSubmit={handleSubmit}>
                             <h2 className="form__container-title form__container-title_login">Регистрация</h2>
                             <div className="form__container-texts form__container-texts_login" >
-                                <input id="password" type="password" placeholder="Пароль" name="password"
-                                    className="form__item form__item_type_job form__item_login-password" required onChange={handleChange} value={valuesRegister.password} autoComplete="on" />
                                 <input id="email" type="email" placeholder="Электронная почта" name="email"
                                     className="form__item form__item_type_job form__item_login-email" required onChange={handleChange} value={valuesRegister.email} autoComplete="email" />
+                                <input id="password" type="password" placeholder="Пароль" name="password"
+                                    className="form__item form__item_type_job form__item_login-password" required onChange={handleChange} value={valuesRegister.password} autoComplete="on" />
                             </div>
                             <button type="submit" aria-label="Зарегистрироваться" className="login__saved-button" >Зарегистрироваться</button>
                         </form>

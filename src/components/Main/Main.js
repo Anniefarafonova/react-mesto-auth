@@ -16,12 +16,14 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
   return (
     <>
       <Header>
+        {/* <button className="header__burger"> */}
         <div className="header__block">
         <p className="header__list">{email}</p>
         <Link to="/sign-in" className='header__list'>
           Выйти
         </Link>
         </div>
+        {/* </button> */}
       </Header>
       <main className="content">
         <section className="profile">

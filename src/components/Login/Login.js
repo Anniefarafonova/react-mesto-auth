@@ -7,8 +7,8 @@ import Register from '../Register/Register';
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState({
+    email: '',
     password: '',
-    email: ''
   })
 
   const handleChange = (e) => {
@@ -21,12 +21,7 @@ export default function Login({ onLogin }) {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    // // здесь нужно будет добавить логин
-    // if (!formValue.password || !formValue.email) {
-    //   return;
-    // }
-    onLogin(formValue.password, formValue.email)
-    
+    onLogin(formValue.email, formValue.password)
   }
 
   return (
@@ -39,13 +34,13 @@ export default function Login({ onLogin }) {
       <main className="content">
         <section className="login">
           <div className="login__container">
-            <form className="form form_login" name="form-login" noValidate onSubmit={handleSubmit}>
+            <form className="form form_login" name="form-login"  onSubmit={handleSubmit}>
               <h2 className="form__container-title form__container-title_login">Вход</h2>
               <div className="form__container-texts form__container-texts_login">
-                <input id="password" type="password" placeholder="Пароль" name="password"
-                  className="form__item form__item_type_name form__item_login-password" required onChange={handleChange} />
                 <input id="email" type="email" placeholder="Электронная почта" name="email"
                   className="form__item form__item_type_job form__item_login-email" required onChange={handleChange} />
+                <input id="password" type="password" placeholder="Пароль" name="password"
+                  className="form__item form__item_type_name form__item_login-password" required onChange={handleChange} />
               </div>
               <button type="submit" aria-label="Войти" className="login__saved-button">Войти</button>
             </form>
