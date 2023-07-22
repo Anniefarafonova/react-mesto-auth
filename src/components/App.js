@@ -64,8 +64,6 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card)
   }
-
-
   //функция закрытия попапоы
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false)
@@ -195,7 +193,7 @@ function App() {
   }
 
   //функция Api
-  useEffect((loggedIn) => {
+  useEffect(() => {
     Promise.all([api.getInfo(), api.getCard()])
       .then(([dataUser, dataCard]) => {
         setCurrentUser(dataUser)

@@ -9,21 +9,19 @@ import imageLogo from '../../images/logo.svg'
 import { Link } from 'react-router-dom';
 
 
-export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onDelete, card, onCardLike, onCardDelete, email }) {
+export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onDelete, card, onCardLike, onCardDelete, email, handleBurgerClick }) {
   const currentUser = useContext(CurrentUserContext)
   
 
   return (
     <>
       <Header>
-        {/* <button className="header__burger"> */}
         <div className="header__block">
         <p className="header__list">{email}</p>
         <Link to="/sign-in" className='header__list'>
           Выйти
         </Link>
         </div>
-        {/* </button> */}
       </Header>
       <main className="content">
         <section className="profile">
