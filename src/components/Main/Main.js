@@ -9,16 +9,16 @@ import imageLogo from '../../images/logo.svg'
 import { Link } from 'react-router-dom';
 
 
-export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onDelete, card, onCardLike, onCardDelete, email, handleBurgerClick }) {
+export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onDelete, card, onCardLike, onCardDelete, email, signOut }) {
   const currentUser = useContext(CurrentUserContext)
-  
 
+ 
   return (
     <>
       <Header>
         <div className="header__block">
         <p className="header__list">{email}</p>
-        <Link to="/sign-in" className='header__list'>
+        <Link to="/sign-in" className='header__list' onClick={signOut}>
           Выйти
         </Link>
         </div>

@@ -6,7 +6,7 @@ import Footer from './Footer/Footer.js';
 import PopupWithForm from './PopupWithForm/PopupWithForm.js';
 import ImagePopup from './ImagePopup/ImagePopup.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContextt/CurrentUserContext.js';
-import { Route, Routes, Link, useNavigate } from "react-router-dom";
+import { Route, Routes, Link, useNavigate,  } from "react-router-dom";
 import api from '../utils/Api.js';
 import EditProfilePopup from './EditProfilePopup/EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup/EditAvatarPopup.js';
@@ -15,7 +15,7 @@ import Login from './Login/Login.js';
 import Register from './Register/Register.js';
 import ProtectedRouteElement from './ProtectedRoute/ProtectedRoute.js';
 import InfoTooltip from './InfoTooltip/InfoTooltip.js';
-import { authorize, register, tokennCheck } from '../utils/Auth.js';
+import { authorize, register, tokenCheck } from '../utils/Auth.js';
 import * as Auth from "../utils/Auth";
 
 
@@ -186,10 +186,15 @@ function App() {
             setEmail(res.data.email)
           }
         })
-        .catch((error) => { 
+        .catch((error) => {
           console.error(`Ошибка проверки токена ${error}`)
         })
     }
+  }
+  function signOut(){
+    localStorage.removeItem('token');
+    setLoggedIn(false);
+    navigate("/sign-in");
   }
 
   //функция Api
@@ -208,6 +213,24 @@ function App() {
         <Routes>
           <Route path="/sign-in" element={<Login onLogin={onLogin} />} />
           <Route path="/sign-up" element={<Register onRegister={onRegister} />} />
+
+          {/* <Route
+            path='/'
+            element={
+              <ProtectedRouteElement
+                element={Main}
+                loggedIn={loggedIn}
+                onEditProfile={handleEditProfileClick}
+                onEditAvatar={handleEditAvatarClick}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                onDelete={handleDeleteClick}
+                onCardLike={handleCardLike}
+                card={card}
+                email={email}
+              />}
+          /> */}
+
           <Route path="/"
             element={
               <ProtectedRouteElement
@@ -219,6 +242,7 @@ function App() {
                     onCardClick={handleCardClick}
                     onDelete={handleDeleteClick}
                     onCardLike={handleCardLike}
+                    signOut={signOut}
                     card={card}
                     email={email}
                     {...props}
@@ -227,6 +251,7 @@ function App() {
                 loggedIn={loggedIn} />
             }
           />
+
         </Routes>
         <Footer />
 

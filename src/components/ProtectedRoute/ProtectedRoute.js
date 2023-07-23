@@ -3,8 +3,11 @@ import { Navigate } from "react-router-dom";
 
 // этот компонент принимает другой компонент в качестве пропса
 // он также может взять неограниченное число пропсов и передать их новому компоненту
-export default function ProtectedRouteElement ({ element: Component, ...props  })  {
-  return (
-    props ? <Component {...props} /> : <Navigate to="/sign-up" replace/>
-)}
+export default function ProtectedRouteElement({ element: Component, ...props }) {
+return props.loggedIn ? (<Component {...props} />) : (<Navigate to="/sign-up" replace />
+
+    //   return (
+    //     props.loggedIn ? <Component {...props} /> : (<Navigate to="/sign-up" replace />)
+  )
+}
 
