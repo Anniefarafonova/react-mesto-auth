@@ -6,7 +6,7 @@ import Footer from './Footer/Footer.js';
 import PopupWithForm from './PopupWithForm/PopupWithForm.js';
 import ImagePopup from './ImagePopup/ImagePopup.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContextt/CurrentUserContext.js';
-import { Route, Routes, Link, useNavigate,  } from "react-router-dom";
+import { Route, Routes, Link, useNavigate, } from "react-router-dom";
 import api from '../utils/Api.js';
 import EditProfilePopup from './EditProfilePopup/EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup/EditAvatarPopup.js';
@@ -187,7 +187,7 @@ function App() {
         })
     }
   }
-  function signOut(){
+  function signOut() {
     localStorage.removeItem('token');
     setLoggedIn(false);
     navigate("/sign-in");
@@ -195,13 +195,13 @@ function App() {
 
   //функция Api
   useEffect(() => {
-   loggedIn && 
-    Promise.all([api.getInfo(), api.getCard()])
-      .then(([dataUser, dataCard]) => {
-        setCurrentUser(dataUser)
-        setCard(dataCard)
-      })
-      .catch((error) => console.error(`Ошибка при начальных данный страницы ${error}`));
+    loggedIn &&
+      Promise.all([api.getInfo(), api.getCard()])
+        .then(([dataUser, dataCard]) => {
+          setCurrentUser(dataUser)
+          setCard(dataCard)
+        })
+        .catch((error) => console.error(`Ошибка при начальных данный страницы ${error}`));
   }, [loggedIn]);
 
   return (
@@ -210,8 +210,7 @@ function App() {
         <Routes>
           <Route path="/sign-in" element={<Login onLogin={onLogin} />} />
           <Route path="/sign-up" element={<Register onRegister={onRegister} />} />
-
-          {/* <Route
+          <Route
             path='/'
             element={
               <ProtectedRouteElement
@@ -225,10 +224,37 @@ function App() {
                 onCardLike={handleCardLike}
                 card={card}
                 email={email}
+                signOut={signOut}
               />}
-          /> */}
+          />
+        </Routes>
+        <Footer />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateUser={handleUpdateUser}
+        />
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateAvatar={handleUpdateAvatar} />
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeButtonByClickOnOverlay} onAddPlace={handleAddPlaceSubmit} />
+        <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeButtonByClickOnOverlay} isDone={isDone} />
+        <PopupWithForm
+          name='confirm'
+          title='Вы уверены?'
+          button='Да'
+          isOpen={isDeletePopupOpen}
+          onClose={closeButtonByClickOnOverlay}
+          onSubmit={handleCardDeleteSubmit}
+        />
+        <ImagePopup card={selectedCard} onClose={closeButtonByClickOnOverlay} />
+      </div>
+    </CurrentUserContext.Provider>
+  );
+}
 
-          <Route path="/"
+
+export default App;
+
+
+
+
+{/* <Route path="/"
             element={
               <ProtectedRouteElement
                 element={(props) => (
@@ -247,48 +273,4 @@ function App() {
                 )}
                 loggedIn={loggedIn} />
             }
-          />
-
-        </Routes>
-        <Footer />
-
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateUser={handleUpdateUser}
-        />
-
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateAvatar={handleUpdateAvatar} />
-
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeButtonByClickOnOverlay} onAddPlace={handleAddPlaceSubmit} />
-
-        <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeButtonByClickOnOverlay} isDone={isDone} />
-
-        <PopupWithForm
-          name='confirm'
-          title='Вы уверены?'
-          button='Да'
-          isOpen={isDeletePopupOpen}
-          onClose={closeButtonByClickOnOverlay}
-          onSubmit={handleCardDeleteSubmit}
-        />
-
-        <ImagePopup card={selectedCard} onClose={closeButtonByClickOnOverlay} />
-      </div>
-    </CurrentUserContext.Provider>
-  );
-}
-
-
-export default App;
-
-
-
-{/* <Route path="/" element={<ProtectedRouteElement
-  element={<Main
-    onEditProfile={handleEditProfileClick}
-    onEditAvatar={handleEditAvatarClick}
-    onAddPlace={handleAddPlaceClick}
-    onCardClick={handleCardClick}
-    onDelete={handleDeleteClick}
-    onCardLike={handleCardLike}
-    card={card}
-  />}
-  loggedIn={loggedIn} />} /> */}
+          /> */}
