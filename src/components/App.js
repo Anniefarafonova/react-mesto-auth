@@ -141,13 +141,10 @@ function App() {
       .then((res) => {
         setIsInfoTooltipPopupOpen(true)
         setIsDone(true)
-        console.log(res);
-        console.log('ok registr');
         navigate('/sign-in', { replace: true });
       })
       .catch((error) => {
         console.error(`Ошибка при регистрации ${error}`)
-        console.log('ne ok registr');
         setIsInfoTooltipPopupOpen(true)
         setIsDone(false)
       })
@@ -168,7 +165,6 @@ function App() {
         setIsDone(false)
       })
   }
-
   //проверка токена
   useEffect(() => {
     getTokenCheck();
@@ -199,6 +195,7 @@ function App() {
 
   //функция Api
   useEffect(() => {
+   loggedIn && 
     Promise.all([api.getInfo(), api.getCard()])
       .then(([dataUser, dataCard]) => {
         setCurrentUser(dataUser)
